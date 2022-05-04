@@ -23,11 +23,25 @@ async function laptop() {
             res.send(laptops)
         })
 
-        app.get('/laptop/:id', async (req, res) => {
+        app.get('/laptops/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) }
             const laptop = await laptopCollection.findOne(query)
             res.send(laptop)
+        })
+        app.put('/laptops/:id', async (req, res) => {
+            const id = req.params.id;
+            const updatedValue = req.body;
+            const query = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updatedDoc = {
+                $set: {
+                    quantity: updatedValue.quantity
+                }
+            };
+            const result = await laptopCollection.updateOne(query, updatedDoc, options);
+            res.send(result);
+
         })
 
     }
