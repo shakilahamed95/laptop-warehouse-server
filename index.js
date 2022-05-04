@@ -29,6 +29,8 @@ async function laptop() {
             const laptop = await laptopCollection.findOne(query)
             res.send(laptop)
         })
+
+        // put method for delivery button
         app.put('/laptops/:id', async (req, res) => {
             const id = req.params.id;
             const updatedValue = req.body;
@@ -37,6 +39,21 @@ async function laptop() {
             const updatedDoc = {
                 $set: {
                     quantity: updatedValue.quantity
+                }
+            };
+            const result = await laptopCollection.updateOne(query, updatedDoc, options);
+            res.send(result);
+
+        })
+        // put method for restock button
+        app.put('/laptops/:id', async (req, res) => {
+            const id = req.params.id;
+            const updatedValue = req.body;
+            const query = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updatedDoc = {
+                $set: {
+                    quantity: updatedQuantity.quantity
                 }
             };
             const result = await laptopCollection.updateOne(query, updatedDoc, options);
