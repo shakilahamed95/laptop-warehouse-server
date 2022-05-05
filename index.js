@@ -16,6 +16,7 @@ async function laptop() {
     try {
         await client.connect();
         const laptopCollection = client.db("laptop-house").collection("inventory");
+        const myCollection = client.db("laptop-house").collection("myItem");
         app.get('/laptops', async (req, res) => {
             const query = {};
             const cursor = laptopCollection.find(query)
@@ -73,6 +74,12 @@ async function laptop() {
             const result = await laptopCollection.insertOne(newlaptop);
             res.send(result)
         });
+
+        app.post('/myItem', async (req, res) => {
+            const myItem = req.body;
+            const result = await myCollection.insertOne(myItem)
+            res.send(result)
+        })
 
     }
     finally {
