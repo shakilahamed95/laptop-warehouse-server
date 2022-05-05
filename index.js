@@ -68,6 +68,12 @@ async function laptop() {
             res.send(result);
         })
 
+        app.post('/laptops', async (req, res) => {
+            const newlaptop = req.body;
+            const result = await laptopCollection.insertOne(newlaptop);
+            res.send(result)
+        });
+
     }
     finally {
 
