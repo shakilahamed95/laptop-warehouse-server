@@ -69,9 +69,9 @@ async function laptop() {
             res.send(result);
         })
 
-        app.post('/laptops', async (req, res) => {
+        app.post('/myItem', async (req, res) => {
             const newlaptop = req.body;
-            const result = await laptopCollection.insertOne(newlaptop);
+            const result = await myCollection.insertOne(newlaptop);
             res.send(result)
         });
 
@@ -79,6 +79,19 @@ async function laptop() {
             const myItem = req.body;
             const result = await myCollection.insertOne(myItem)
             res.send(result)
+        })
+        app.get('/myItem', async (req, res) => {
+            const email = req.query.email;
+            const query = { email: email };
+            const cursor = myCollection.find(query)
+            const result = await cursor.toArray();
+            res.send(result)
+        })
+        app.delete('/myItem/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await myCollection.deleteOne(query);
+            res.send(result);
         })
 
     }
