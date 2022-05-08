@@ -43,7 +43,8 @@ async function laptop() {
             const options = { upsert: true };
             const updatedDoc = {
                 $set: {
-                    quantity: updatedValue.quantity
+                    quantity: updatedValue.quantity,
+                    sold: updatedValue.sold
                 }
             };
             const result = await laptopCollection.updateOne(query, updatedDoc, options);
