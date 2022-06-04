@@ -40,7 +40,7 @@ async function laptop() {
             res.send(laptop)
         })
 
-        // put method for delivery button
+        // put method implemented for delivery button
         app.put('/laptops/:id', async (req, res) => {
             const id = req.params.id;
             const updatedValue = req.body;
