@@ -25,6 +25,7 @@ async function laptop() {
         const laptopCollection = client.db("laptop-house").collection("inventory");
         const myCollection = client.db("laptop-house").collection("myItem");
         const employeeCollection = client.db("laptop-house").collection("employee");
+        const banglaBookCollection = client.db("laptop-house").collection("banglabook");
 
         app.get('/laptops', async (req, res) => {
             const query = {};
@@ -116,6 +117,11 @@ async function laptop() {
             const cursor = employeeCollection.find(query)
             const employee = await cursor.toArray();
             res.send(employee)
+        })
+
+        app.get('/banglabook', async (req, res) => {
+            const bangla = await banglaBookCollection.find().toArray();
+            res.send(bangla)
         })
 
     }
