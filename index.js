@@ -123,6 +123,12 @@ async function laptop() {
             const bangla = await banglaBookCollection.find().toArray();
             res.send(bangla)
         })
+        app.get('/banglabook/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+            const book = await banglaBookCollection.findOne(query)
+            res.send(book)
+        })
 
     }
     finally {
